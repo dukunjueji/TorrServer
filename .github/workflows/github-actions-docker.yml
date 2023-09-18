@@ -14,12 +14,12 @@ jobs:
       -
         name: Checkout
         uses: actions/checkout@v3.3.0
-
+        
       - name: Docker meta
         id: meta
         uses: docker/metadata-action@v4
         with:
-          images: dukun/TorrServer
+          images: dukun/TorrServer  
       -
         name: Set up QEMU
         uses: docker/setup-qemu-action@v2.1.0
