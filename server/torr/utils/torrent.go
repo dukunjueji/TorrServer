@@ -37,7 +37,9 @@ func GetTrackerFromFile() []string {
 	name := filepath.Join(settings.Path, "trackers.txt")
 	buf, err := os.ReadFile(name)
 	if err == nil {
-		list := strings.Split(string(buf), "\n")
+		//list := strings.Split(string(buf), "\n")
+		list := strings.Split(strings.ReplaceAll(string(buf), "\r", ""), "\n")
+
 		var ret []string
 		for _, l := range list {
 			if strings.HasPrefix(l, "udp") || strings.HasPrefix(l, "http") {
@@ -61,6 +63,12 @@ func loadNewTracker() {
 	if len(loadedTrackers) > 0 {
 		return
 	}
+	//https://trackerslist.com/all.txt
+	//https://ngosang.github.io/trackerslist/trackers_all.txt
+	//http://github.itzmx.com/1265578519/OpenTracker/master/tracker.txt
+	//https://gitee.com/harvey520/www.yaozuopan.top/raw/master/blacklist.txt
+	//https://www.gbsat.org/bt/tracker.txt
+	//https://cdn.staticaly.com/gh/XIU2/TrackersListCollection/master/all.txt
 	resp, err := http.Get("https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best_ip.txt")
 	if err == nil {
 		buf, err := io.ReadAll(resp.Body)
