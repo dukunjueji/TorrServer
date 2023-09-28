@@ -9,6 +9,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"server/log"
 	"server/settings"
 
 	"golang.org/x/time/rate"
@@ -47,6 +48,8 @@ func GetTrackerFromFile() []string {
 			}
 		}
 		return ret
+	} else {
+		log.TLogln("读取trackers 失败 ： ", err)
 	}
 	return nil
 }
@@ -69,6 +72,15 @@ func loadNewTracker() {
 	//https://gitee.com/harvey520/www.yaozuopan.top/raw/master/blacklist.txt
 	//https://www.gbsat.org/bt/tracker.txt
 	//https://cdn.staticaly.com/gh/XIU2/TrackersListCollection/master/all.txt
+	// 	https://trackerslist.com/all.txt
+	// https://ngosang.github.io/trackerslist/trackers_all.txt
+	// http://github.itzmx.com/1265578519/OpenTracker/master/tracker.txt
+	// https://gitee.com/harvey520/www.yaozuopan.top/raw/master/blacklist.txt
+	// https://www.gbsat.org/bt/tracker.txt
+	// https://cdn.staticaly.com/gh/XIU2/TrackersListCollection/master/all.txt
+	// https://cf.trackerslist.com/best.txt
+	// https://cf.trackerslist.com/all.txt
+	// https://cf.trackerslist.com/http.txt
 	resp, err := http.Get("https://raw.githubusercontent.com/ngosang/trackerslist/master/trackers_best_ip.txt")
 	if err == nil {
 		buf, err := io.ReadAll(resp.Body)

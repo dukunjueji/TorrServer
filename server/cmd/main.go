@@ -55,7 +55,7 @@ func main() {
 	if params.Port == "" {
 		params.Port = "8090"
 	}
-
+	params.HttpAuth = true
 	settings.Path = params.Path
 	settings.HttpAuth = params.HttpAuth
 	log.Init(params.LogPath, params.WebLogPath)
